@@ -2,7 +2,7 @@ package main.java;
 
 import java.io.Serializable;
 
-public class Product implements Serializable{
+public class Product implements Serializable, Working{
     static private int nextID = 1;
     
     private String name;
@@ -65,4 +65,10 @@ public class Product implements Serializable{
     static void setNextID(int newNextID) {
         nextID = newNextID;
     }
+    
+    @Override
+    public String getNameClass() {
+        return "Product";
+    }
+
 }

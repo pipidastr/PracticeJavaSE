@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Consumer implements Serializable{
+public class Consumer implements Serializable, Working{
     
     private int ID;
     private double totalPrice;
@@ -59,5 +59,10 @@ public class Consumer implements Serializable{
         }
     }
     
+    @Override
+    public String getNameClass() {
+        return "Consumer";
+    }
+
     
 }

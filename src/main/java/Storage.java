@@ -8,131 +8,12 @@ public class Storage {
     
     
 
-    static List <Product> allProductsList = new ArrayList<>();
-    static List <Provider> allProvidersList = new ArrayList<>();
-    static List <Consumer> allConsumersList = new ArrayList<>();
+    List <Product> allProductsList = new ArrayList<>();
+    List <Provider> allProvidersList = new ArrayList<>();
+    List <Consumer> allConsumersList = new ArrayList<>();
     
     
-    public static void main(String[] args){
-        
-        FileReadAndWrite.readDataFromFiles();
-        
-        boolean exit = false;
-        
-        while (exit == false) {
-        
-            System.out.println("Enter: 1 - show products list/ 2 - show providers list/ 3 - show consumers list / 4 - save and exit/ 5 - exit");
-            int i;
-            Scanner scanner = new Scanner(System.in);
-            i = scanner.nextInt();
-
-            switch(i) {
-                case 1: {
-                    PrintAllProductsList();
-                    boolean comeBackToStart = false;
-                    
-                    while(comeBackToStart == false) {
-                        System.out.println("Enter: 1 - add product/ 2 - remove product/ 3 - come back");
-                        i = scanner.nextInt();
-                        
-                        switch(i) {
-                            case 1:{
-                                addNewProduct(allProductsList, allProvidersList);
-                                PrintAllProductsList();
-                                
-                            } break;
-                            
-                            case 2:{
-                                System.out.println("Enter the number of the product to be deleted");
-                                i = scanner.nextInt();
-                                deleteProduct(i);
-                                PrintAllProductsList();
-                            } break;
-                            
-                            case 3:{
-                                comeBackToStart = true;
-                                break;
-                            }
-                        }
-                    }
-                } break;
-                
-                
-                case 2:{
-                    PrintAllProviderList();
-                    boolean comeBackToStart = false;
-                    
-                    while(comeBackToStart == false) {
-                        System.out.println("Enter: 1 - add provider/ 2 - remove provider/ 3 - come back");
-                        i = scanner.nextInt();
-                        
-                        switch(i) {
-                            case 1:{
-                                addNewProvider(allProvidersList);
-                                PrintAllProviderList();
-                            } break;
-                            case 2:{
-                                System.out.println("Enter the number of the provider to be deleted");
-                                i = scanner.nextInt();
-                                deleteProvider(i);
-                                PrintAllProviderList();
-                            } break;
-                            case 3:{
-                                comeBackToStart = true;
-                            } break;
-                        }
-                    }
-                } break;
-                
-                case 3:{
-                    
-                    printAllConsumersList();
-                    boolean comeBackToStart = false;
-                    
-                    while(comeBackToStart == false) {
-        
-                        System.out.println("Enter: 1 - add consumer/ 2 - remove consumer/ 3 -  come back");
-                        i = scanner.nextInt();
-                        
-                        switch(i) {
-                            case 1:{
-                                addNewConsumer(allConsumersList);
-                                
-                            } break;
-                            
-                            case 2:{
-                                System.out.println("Enter the number of the consumer to be deleted");
-                                i = scanner.nextInt();
-                                deleteConsumer(i);
-                                printAllConsumersList();
-                            } break;
-                            case 3:{
-                                comeBackToStart = true;
-                            } break;
-                        }
-                    } 
-                } break;
-                
-                case 4:{
-                    FileReadAndWrite.writeDataFromFiles();
-                    exit = true;
-                } break;
-                
-                case 5:{
-                    exit = true;
-                }
-            } 
-        }
-        
-        
-
-    }
-    
-    
-    
-    
-    
-    public static void PrintAllProductsList() {
+    public void PrintAllProductsList() {
         if (allProductsList.isEmpty()) {
             System.out.println("Product list is empty");
         }
@@ -144,7 +25,7 @@ public class Storage {
             }
     }
     
-    public static void PrintAllProviderList() {
+    public void PrintAllProviderList() {
         if (allProvidersList.isEmpty()) {
             System.out.println("Provider list is empty");
         }
@@ -157,7 +38,7 @@ public class Storage {
     }
 
     
-    public static void printAllConsumersList() {
+    public void printAllConsumersList() {
         if (allConsumersList.isEmpty()) {
             System.out.println("Consumers list is empty");
         }
@@ -170,7 +51,7 @@ public class Storage {
             
     }
     
-    public static void addNewProduct(List <Product> allProductsList, List <Provider> allProvidersList) {
+    public void addNewProduct(List <Product> allProductsList, List <Provider> allProvidersList) {
         
         Scanner scanner = new Scanner(System.in);
         String name;
@@ -203,7 +84,7 @@ public class Storage {
         }
     }
     
-    public static void addNewProvider(List <Provider> allProvidersList) {
+    public void addNewProvider(List <Provider> allProvidersList) {
         Scanner scanner = new Scanner(System.in);
         String name;
         
@@ -215,7 +96,7 @@ public class Storage {
         
     }
     
-    public static void addNewConsumer(List <Consumer> allConsumerList) {
+    public void addNewConsumer(List <Consumer> allConsumerList) {
         Scanner scanner = new Scanner(System.in);
         Consumer consumer = new Consumer();
         
@@ -256,7 +137,7 @@ public class Storage {
         }
     }
     
-    public static Product findProduct(int ID) {
+    public Product findProduct(int ID) {
         for(Product product: allProductsList) {
             if(product.getId() == ID) {
                 return product;
@@ -265,7 +146,7 @@ public class Storage {
         return null;
     }
     
-    public static Provider findProvider(int ID) {
+    public Provider findProvider(int ID) {
         for(Provider provider: allProvidersList) {
             if(provider.getID() == ID) {
                 return provider;
@@ -274,7 +155,7 @@ public class Storage {
         return null;
     }
     
-    public static Consumer findConsumer(int ID) {
+    public Consumer findConsumer(int ID) {
         for(Consumer consumer: allConsumersList) {
             if(consumer.getId() == ID) {
                 return consumer;
@@ -283,7 +164,7 @@ public class Storage {
         return null;
     }
     
-    public static void deleteProduct(int ID) {
+    public void deleteProduct(int ID) {
         boolean hasID = false;
         for(Product product: allProductsList) {
             if(product.getId() == ID) {
@@ -300,7 +181,7 @@ public class Storage {
         
     }
     
-    public static void deleteProvider(int ID) {
+    public void deleteProvider(int ID) {
         boolean hasID = false;
         for(Provider provider: allProvidersList) {
             if(provider.getID() == ID) {
@@ -316,7 +197,7 @@ public class Storage {
         }
     }
     
-    public static void deleteConsumer(int ID) {
+    public void deleteConsumer(int ID) {
         boolean hasID = false;
         for(Consumer consumer: allConsumersList) {
             if(consumer.getId() == ID) {

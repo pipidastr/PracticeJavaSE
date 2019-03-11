@@ -17,16 +17,16 @@ public class FileReadAndWrite {
     final static String consumersFile = "Consumers.dat";
     final static String providersFile = "Providers.dat";
 
-    public static void readDataFromFiles() {
-        readProvidersFile(providersFile, Storage.allProvidersList);
-        readProductsFile(productsFile, Storage.allProductsList);
-        readConsumersList(consumersFile, Storage.allConsumersList);
+    public static void readDataFromFiles(Storage storage) {
+        readProvidersFile(providersFile, storage.allProvidersList);
+        readProductsFile(productsFile, storage.allProductsList);
+        readConsumersList(consumersFile, storage.allConsumersList);
     }
     
-    public static void writeDataFromFiles() {
-        writeProvidersFile(providersFile, Storage.allProvidersList);
-        writeProductsFile(productsFile, Storage.allProductsList);
-        writeConsumersList(consumersFile, Storage.allConsumersList);
+    public static void writeDataFromFiles(Storage storage) {
+        writeProvidersFile(providersFile, storage.allProvidersList);
+        writeProductsFile(productsFile, storage.allProductsList);
+        writeConsumersList(consumersFile, storage.allConsumersList);
     }
     
     public static void readProductsFile (String fileName, List <Product> productsList) {
@@ -155,4 +155,5 @@ public class FileReadAndWrite {
         
     }
     
+ 
 }

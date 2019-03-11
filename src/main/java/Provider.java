@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Provider implements Serializable {
+public class Provider implements Serializable, Working {
     
     private String name;
     private int ID;
@@ -61,6 +61,10 @@ public class Provider implements Serializable {
     @Override
     public String toString() {
         return ID + " " + name;
+    }
+    @Override
+    public String getNameClass() {
+        return "Provider";
     }
 
 }
