@@ -2,9 +2,8 @@ package main.java;
 
 import java.io.Serializable;
 
-public class Product implements Serializable, Working{
+public class Product implements Serializable, Item{
     static private int nextID = 1;
-    
     private String name;
     private Provider provider;
     private double price;
@@ -55,7 +54,7 @@ public class Product implements Serializable, Working{
     
     @Override
     public String toString() {
-        return ID + " " + name + " " + price + " RUB " + count + " QTY";
+        return "ID: " + ID + " name: " + name + " price: " + price + " RUB  count: " + count + " QTY";
     }
     
     static int getNextID() {

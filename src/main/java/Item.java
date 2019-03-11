@@ -1,5 +1,5 @@
 package main.java;
 
-public interface Working {
+public interface Item {
    public String getNameClass();
 }

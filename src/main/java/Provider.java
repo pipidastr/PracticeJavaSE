@@ -4,11 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Provider implements Serializable, Working {
-    
+public class Provider implements Serializable, Item {
+    private static int nextID = 1;
     private String name;
     private int ID;
-    private static int nextID = 1;
     private List<Integer> productsIDList = new ArrayList<>();
     
     Provider(String name){
@@ -28,8 +27,8 @@ public class Provider implements Serializable, Working {
         return ID;
     }
     
-    public List <Integer> getProductsIDList() {
-        for(Product product: Storage.allProductsList) {
+    public List <Integer> getProductsIDList(Storage storage) {
+        for(Product product: storage.allProductsList) {
             if(product.getProvider().getID() == ID) {
                 productsIDList.add(product.getId()); 
             }
@@ -49,8 +48,8 @@ public class Provider implements Serializable, Working {
         nextID = newNextID;
     }
     
-    public void printProductList() {
-        for(Product product: Storage.allProductsList) {
+    public void printProductList(Storage storage) {
+        for(Product product: storage.allProductsList) {
             if(product.getProvider().getID() == ID) {
                 System.out.println(product.toString());
             }

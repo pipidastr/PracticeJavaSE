@@ -4,12 +4,11 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Consumer implements Serializable, Working{
-    
+public class Consumer implements Serializable, Item{
+    private static int nextID = 1;
     private int ID;
     private double totalPrice;
-    private static int nextID = 1;
-    private Map <Integer, Integer> productsList = new HashMap<>(); //key = Product ID, value = the amount of product purchased by the buyer 
+    private Map <Integer, Integer> productsList = new HashMap<>();
     
     public Consumer () {
         this.ID = nextID;
@@ -40,8 +39,7 @@ public class Consumer implements Serializable, Working{
         if(product.getCount() < count) {
             System.out.println("Maximum availible: " + product.getCount() + " QTY)");
             return false;
-        }
-        else {
+        } else {
             productsList.put(product.getId(), count);
             product.setCount(product.getCount() - count);
             totalPrice+=product.getPrice()*count;
@@ -49,9 +47,9 @@ public class Consumer implements Serializable, Working{
         }
     }   
     
-    public void printProductList () {
+    public void printProductList (Storage storage) {
         for (Integer key: productsList.keySet()) {
-            for (Product i: Storage.allProductsList){
+            for (Product i: storage.allProductsList){
                 if(i.getId() == (int)key) {
                     System.out.println(ID + " " + i.getId() +  " " + i.getName() + " " + i.getPrice() + " " + "RUB " + productsList.get(key) + " QTY" + " finaly " + i.getPrice()*productsList.get(key) + " RUB");
                 }

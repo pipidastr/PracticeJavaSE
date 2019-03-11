@@ -41,11 +41,10 @@ public class Storage {
     public void printAllConsumersList() {
         if (allConsumersList.isEmpty()) {
             System.out.println("Consumers list is empty");
-        }
-        else {
+        } else {
                 System.out.println("Consumers list:");            
                 for(Consumer consumer: allConsumersList) {
-                    consumer.printProductList();
+                    consumer.printProductList(this);
                 }
         }
             
@@ -113,7 +112,7 @@ public class Storage {
                             int amount = scanner.nextInt();
                             if(consumer.addProduct(product, amount) == true) {
                                 allConsumerList.add(consumer);            
-                                consumer.printProductList();
+                                consumer.printProductList(this);
                                 break;
                             } else continue;
                         }

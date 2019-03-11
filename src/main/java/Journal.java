@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class Journal {
 
-    public static void addEntry(Working object, int IDofOperation) {
+    public static void addEntry(Item object, int IDofOperation) {
         
         try(FileWriter writer = new FileWriter(".\\src\\main\\resources\\Journal.txt", true)){
             switch (IDofOperation) {
