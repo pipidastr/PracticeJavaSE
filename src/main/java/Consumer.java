@@ -4,8 +4,11 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Consumer implements Serializable, Item{
+public class Consumer extends Item implements Serializable{
+
+    private static final long serialVersionUID = -1326514726591363183L;
     private static int nextID = 1;
+    
     private int ID;
     private double totalPrice;
     private Map <Integer, Integer> productsList = new HashMap<>();
@@ -14,8 +17,8 @@ public class Consumer implements Serializable, Item{
         this.ID = nextID;
         nextID++;
     }
-    
-    public int getId() {
+    @Override
+    public int getID() {
         return ID;
     }
     
@@ -40,25 +43,15 @@ public class Consumer implements Serializable, Item{
             System.out.println("Maximum availible: " + product.getCount() + " QTY)");
             return false;
         } else {
-            productsList.put(product.getId(), count);
+            productsList.put(product.getID(), count);
             product.setCount(product.getCount() - count);
             totalPrice+=product.getPrice()*count;
             return true;
         }
     }   
     
-    public void printProductList (Storage storage) {
-        for (Integer key: productsList.keySet()) {
-            for (Product i: storage.allProductsList){
-                if(i.getId() == (int)key) {
-                    System.out.println(ID + " " + i.getId() +  " " + i.getName() + " " + i.getPrice() + " " + "RUB " + productsList.get(key) + " QTY" + " finaly " + i.getPrice()*productsList.get(key) + " RUB");
-                }
-            }
-        }
-    }
-    
     @Override
-    public String getNameClass() {
+    public String getClassName() {
         return "Consumer";
     }
 

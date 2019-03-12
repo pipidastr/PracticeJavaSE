@@ -4,8 +4,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Provider implements Serializable, Item {
+public class Provider extends Item implements Serializable{
+
+    private static final long serialVersionUID = -2994953547927924480L;
     private static int nextID = 1;
+    
     private String name;
     private int ID;
     private List<Integer> productsIDList = new ArrayList<>();
@@ -16,23 +19,20 @@ public class Provider implements Serializable, Item {
         nextID++;
     }
     
+    @Override
     public String getName() {
         return name;
     }
     public void setName(String name) {
         this.name = name;
     }
-
+    
+    @Override
     public int getID() {
         return ID;
     }
     
     public List <Integer> getProductsIDList(Storage storage) {
-        for(Product product: storage.allProductsList) {
-            if(product.getProvider().getID() == ID) {
-                productsIDList.add(product.getId()); 
-            }
-        }
         return productsIDList;
     }
 
@@ -48,21 +48,12 @@ public class Provider implements Serializable, Item {
         nextID = newNextID;
     }
     
-    public void printProductList(Storage storage) {
-        for(Product product: storage.allProductsList) {
-            if(product.getProvider().getID() == ID) {
-                System.out.println(product.toString());
-            }
-        }
-        System.out.println();
-    }
-    
     @Override
     public String toString() {
         return ID + " " + name;
     }
     @Override
-    public String getNameClass() {
+    public String getClassName() {
         return "Provider";
     }
 

@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Start {
    public static void main(String[] args){
         Storage storage = new Storage();
-        FileReadAndWrite.readDataFromFiles(storage);
+        FileReadAndWrite.readDataStorageByFiles(storage);
         
         boolean exit = false;
         boolean comeBackToStart = false;
@@ -97,7 +97,7 @@ public class Start {
                 break;
                 
                 case 4:
-                    FileReadAndWrite.writeDataFromFiles(storage);
+                    FileReadAndWrite.writeDataStorageByFiles(storage);
                     exit = true;
                 break;
                 

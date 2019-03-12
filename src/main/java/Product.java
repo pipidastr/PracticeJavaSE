@@ -2,8 +2,11 @@ package main.java;
 
 import java.io.Serializable;
 
-public class Product implements Serializable, Item{
-    static private int nextID = 1;
+public class Product extends Item implements Serializable{
+    
+    private static final long serialVersionUID = -1363689602281760557L;
+    private static int nextID = 1;
+    
     private String name;
     private Provider provider;
     private double price;
@@ -40,7 +43,7 @@ public class Product implements Serializable, Item{
         this.count = count;
     }
 
-    public int getId() {
+    public int getID() {
         return ID;
     }
 
@@ -57,16 +60,16 @@ public class Product implements Serializable, Item{
         return "ID: " + ID + " name: " + name + " price: " + price + " RUB  count: " + count + " QTY";
     }
     
-    static int getNextID() {
+    public static int getNextID() {
         return nextID;
     }
     
-    static void setNextID(int newNextID) {
+    public static void setNextID(int newNextID) {
         nextID = newNextID;
     }
     
     @Override
-    public String getNameClass() {
+    public String getClassName() {
         return "Product";
     }
 

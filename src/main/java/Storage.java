@@ -6,53 +6,48 @@ import java.util.Scanner;
 
 public class Storage {
     
+    private List <Item> allProductsList = new ArrayList<>();
+    private List <Item> allProvidersList = new ArrayList<>();
+    private List <Item> allConsumersList = new ArrayList<>();
     
-
-    List <Product> allProductsList = new ArrayList<>();
-    List <Provider> allProvidersList = new ArrayList<>();
-    List <Consumer> allConsumersList = new ArrayList<>();
-    
-    
-    public void PrintAllProductsList() {
-        if (allProductsList.isEmpty()) {
-            System.out.println("Product list is empty");
-        }
-        else {
-                System.out.println("Product list:");
-                for(Product product: allProductsList) {
-                    System.out.println(product.toString());
-                }
-            }
-    }
-    
-    public void PrintAllProviderList() {
-        if (allProvidersList.isEmpty()) {
-            System.out.println("Provider list is empty");
-        }
-        else {
-                System.out.println("Provider list:");            
-                for(Provider provider: allProvidersList) {
-                    System.out.println(provider.toString());
-                }
-            }
+    public List<Item> getAllProductsList() {
+        return allProductsList;
     }
 
+    public void setAllProductsList(List<Item> allProductsList) {
+        this.allProductsList = allProductsList;
+    }
+
+    public List<Item> getAllProvidersList() {
+        return allProvidersList;
+    }
+
+    public void setAllProvidersList(List<Item> allProvidersList) {
+        this.allProvidersList = allProvidersList;
+    }
+
+    public List<Item> getAllConsumersList() {
+        return allConsumersList;
+    }
+
+    public void setAllConsumersList(List<Item> allConsumersList) {
+        this.allConsumersList = allConsumersList;
+    }
     
-    public void printAllConsumersList() {
-        if (allConsumersList.isEmpty()) {
-            System.out.println("Consumers list is empty");
+    public void printList(List <Item> list) {
+        if (list.isEmpty()) {
+            System.out.println("list is empty");
         } else {
-                System.out.println("Consumers list:");            
-                for(Consumer consumer: allConsumersList) {
-                    consumer.printProductList(this);
+                System.out.println(list.get(0).getClassName() + " list:");            
+                for(Item item: list) {
+                    item.toString();
                 }
         }
-            
     }
     
     public void addNewProduct(List <Product> allProductsList, List <Provider> allProvidersList) {
         
-        Scanner scanner = new Scanner(System.in);
+        
         String name;
         double price;
         int count;
@@ -105,7 +100,7 @@ public class Storage {
             while (hasID != true) {
                 int productID = scanner.nextInt();
                 for(Product product: allProductsList) {
-                    if(product.getId() == productID) {
+                    if(product.getID() == productID) {
                         hasID = true;
                         System.out.println("Enter amount (max availible: " + product.getCount() + " QTY)");
                         while(true) {
@@ -138,7 +133,7 @@ public class Storage {
     
     public Product findProduct(int ID) {
         for(Product product: allProductsList) {
-            if(product.getId() == ID) {
+            if(product.getID() == ID) {
                 return product;
             } 
         }
@@ -156,7 +151,7 @@ public class Storage {
     
     public Consumer findConsumer(int ID) {
         for(Consumer consumer: allConsumersList) {
-            if(consumer.getId() == ID) {
+            if(consumer.getID() == ID) {
                 return consumer;
             }
         }
@@ -166,7 +161,7 @@ public class Storage {
     public void deleteProduct(int ID) {
         boolean hasID = false;
         for(Product product: allProductsList) {
-            if(product.getId() == ID) {
+            if(product.getID() == ID) {
                 allProductsList.remove(product);
                 Journal.addEntry(product, 2);
                 hasID = true;
@@ -199,7 +194,7 @@ public class Storage {
     public void deleteConsumer(int ID) {
         boolean hasID = false;
         for(Consumer consumer: allConsumersList) {
-            if(consumer.getId() == ID) {
+            if(consumer.getID() == ID) {
                 allConsumersList.remove(consumer);
                 Journal.addEntry(consumer, 2);
                 hasID = true;
