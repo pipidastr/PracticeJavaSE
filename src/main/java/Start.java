@@ -2,6 +2,8 @@ package main.java;
 
 import java.util.Scanner;
 
+import jdk.nashorn.internal.runtime.FindProperty;
+
 public class Start {
    public static void main(String[] args){
         Storage storage = new Storage();
@@ -19,22 +21,57 @@ public class Start {
 
             switch(i) {
                 case 1: 
-                    storage.PrintAllProductsList();
+                    storage.printList(storage.getAllProductsList());
                     while(comeBackToStart == false) {
                         System.out.println("Enter: 1 - add product/ 2 - remove product/ 3 - come back");
                         i = scanner.nextInt();
                         switch(i) {
                             case 1:
-                                storage.addNewProduct(storage.allProductsList, storage.allProvidersList);
-                                storage.PrintAllProductsList();
+                                String name;
+                                double price;
+                                int count;
+                                int providerID;
+                                boolean hasProvider = false;
                                 
+                                System.out.println("Enter the name");
+                                name = scanner.next();
+                                System.out.println("Enter the price");
+                                price = scanner.nextDouble();
+                                System.out.println("Enter the count");
+                                count = scanner.nextInt();
+                                System.out.println("Enter the number of provider");
+                                providerID = scanner.nextInt();
+                                
+                                for(Item item : storage.getAllProvidersList()) {
+                                    if(item.getID() == providerID) {
+                                        hasProvider = true;
+                                        Product newProduct = new Product(name, price, count, (Provider)item);
+                                        storage.addItem(newProduct, storage.getAllProductsList());
+                                        Journal.addEntry(newProduct, 1);
+                                        storage.printList(storage.getAllProductsList());
+                                    } 
+                                }
+                                
+                                if(hasProvider == false) {
+                                    System.out.println("Provider number " + providerID + " does not exist.  Please, enter a valid number or create a new provider");
+                                }
                             break;
                             
                             case 2:
+                                int ID;
                                 System.out.println("Enter the number of the product to be deleted");
-                                i = scanner.nextInt();
-                                storage.deleteProduct(i);
-                                storage.PrintAllProductsList();
+                                ID = scanner.nextInt();
+                                Item delItem = storage.findItem(ID, storage.getAllProductsList());
+                                
+                                if(delItem != null) {
+                                    if(storage.deleteItem(delItem, storage.getAllProductsList()) == true) {
+                                        System.out.println("Product number " + ID + " has been removed");
+                                        Journal.addEntry(delItem, 2);
+                                    } 
+                                } else {
+                                    System.out.println("Product number " + ID + " is not found.  Please enter a valid number");
+                                }
+                                storage.printList(storage.getAllProductsList());
                             break;
                             
                             case 3:
@@ -46,13 +83,19 @@ public class Start {
                 break;
                 
                 case 2:
-                    storage.PrintAllProviderList();
+                    storage.printList(storage.getAllProvidersList());;
                     while(comeBackToStart == false) {
                         System.out.println("Enter: 1 - add provider/ 2 - remove provider/ 3 - come back");
                         i = scanner.nextInt();
                         
                         switch(i) {
                             case 1:
+                                String name;
+                                System.out.println("Enter the name");
+                                name = scanner.nextLine();
+                                
+                                Provider newProvider = new Provider(name);
+                                storage.addItem(newProvider, storage.getAllProvidersList());
                                 storage.addNewProvider(storage.allProvidersList);
                                 storage.PrintAllProviderList();
                             break;

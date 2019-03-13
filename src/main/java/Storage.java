@@ -45,37 +45,10 @@ public class Storage {
         }
     }
     
-    public void addNewProduct(List <Product> allProductsList, List <Provider> allProvidersList) {
-        
-        
-        String name;
-        double price;
-        int count;
-        int providerID;
-        
-        System.out.println("Enter the name");
-        name = scanner.next();
-        System.out.println("Enter the price");
-        price = scanner.nextDouble();
-        System.out.println("Enter the count");
-        count = scanner.nextInt();
-        System.out.println("Enter the number of provider");
-        providerID = scanner.nextInt();
-        
-        boolean hasProviderNumber = false;
-        
-        for(Provider provider: allProvidersList) {
-            if(provider.getID() == providerID) {
-                Product product = new Product(name, price, count, provider);
-                allProductsList.add(product);
-                Journal.addEntry(product, 1);
-                hasProviderNumber = true;
-            }
-        }
-        
-        if(hasProviderNumber = false) {
-            System.out.println("Provider number " + providerID + " does not exist.  Please, enter a valid number or create a new provider");
-        }
+    public boolean addItem(Item item, List <Item> list) {
+        list.add(item);
+        Journal.addEntry(item, 1);
+        return true;
     }
     
     public void addNewProvider(List <Provider> allProvidersList) {
@@ -131,80 +104,17 @@ public class Storage {
         }
     }
     
-    public Product findProduct(int ID) {
-        for(Product product: allProductsList) {
-            if(product.getID() == ID) {
-                return product;
-            } 
-        }
-        return null;
+    public boolean deleteItem (Item item, List <Item> list) {
+        return list.remove(item);
     }
     
-    public Provider findProvider(int ID) {
-        for(Provider provider: allProvidersList) {
-            if(provider.getID() == ID) {
-                return provider;
-            } 
-        }
-        return null;
-    }
-    
-    public Consumer findConsumer(int ID) {
-        for(Consumer consumer: allConsumersList) {
-            if(consumer.getID() == ID) {
-                return consumer;
+    public Item findItem(int ID, List <Item> list) {
+        for(Item item : list) {
+            if(item.getID() == ID) {
+                return item;
             }
-        }
-        return null;
-    }
-    
-    public void deleteProduct(int ID) {
-        boolean hasID = false;
-        for(Product product: allProductsList) {
-            if(product.getID() == ID) {
-                allProductsList.remove(product);
-                Journal.addEntry(product, 2);
-                hasID = true;
-                System.out.println("Product number " + ID + " has been removed");
-                break;
-            }
-        }
-        if (hasID = false) {
-            System.out.println("Product number " + ID + " is not found.  Please enter a valid number");
         }
         
+        return null;
     }
-    
-    public void deleteProvider(int ID) {
-        boolean hasID = false;
-        for(Provider provider: allProvidersList) {
-            if(provider.getID() == ID) {
-                allProvidersList.remove(provider);
-                Journal.addEntry(provider, 2);
-                hasID = true;
-                System.out.println("Provider number " + ID + " has been removed");
-                break;
-            }
-        }
-        if (hasID = false) {
-            System.out.println("Provider number " + ID + " is not found.  Please enter a valid number");
-        }
-    }
-    
-    public void deleteConsumer(int ID) {
-        boolean hasID = false;
-        for(Consumer consumer: allConsumersList) {
-            if(consumer.getID() == ID) {
-                allConsumersList.remove(consumer);
-                Journal.addEntry(consumer, 2);
-                hasID = true;
-                System.out.println("Consumer number " + ID + " has been removed");
-                break;
-            }
-        }
-        if (hasID = false) {
-            System.out.println("Consumer number " + ID + " is not found.  Please enter a valid number");
-        }
-    }
-
 }
