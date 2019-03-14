@@ -2,7 +2,6 @@ package main.java;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Storage {
     
@@ -40,68 +39,14 @@ public class Storage {
         } else {
                 System.out.println(list.get(0).getClassName() + " list:");            
                 for(Item item: list) {
-                    item.toString();
+                    System.out.println(item.toString());
                 }
         }
     }
     
     public boolean addItem(Item item, List <Item> list) {
-        list.add(item);
         Journal.addEntry(item, 1);
-        return true;
-    }
-    
-    public void addNewProvider(List <Provider> allProvidersList) {
-        Scanner scanner = new Scanner(System.in);
-        String name;
-        
-        System.out.println("Enter the name");
-        name = scanner.next();
-        Provider provider = new Provider(name);
-        allProvidersList.add(provider);
-        Journal.addEntry(provider, 1);
-        
-    }
-    
-    public void addNewConsumer(List <Consumer> allConsumerList) {
-        Scanner scanner = new Scanner(System.in);
-        Consumer consumer = new Consumer();
-        
-        while(true) {
-            System.out.println("Enter product numbers separated by a space");
-            boolean hasID = false;
-            while (hasID != true) {
-                int productID = scanner.nextInt();
-                for(Product product: allProductsList) {
-                    if(product.getID() == productID) {
-                        hasID = true;
-                        System.out.println("Enter amount (max availible: " + product.getCount() + " QTY)");
-                        while(true) {
-                            int amount = scanner.nextInt();
-                            if(consumer.addProduct(product, amount) == true) {
-                                allConsumerList.add(consumer);            
-                                consumer.printProductList(this);
-                                break;
-                            } else continue;
-                        }
-                    }
-                } 
-                if(hasID == false) {
-                    System.out.println("Product number " + productID + " does not exist.  Please, enter a valid number or create a new product");
-                    continue;
-                }
-            }
-            
-            System.out.println("Enter: 1 - add more/ 2 - accept and return");
-            int i = scanner.nextInt();
-            
-            if(i == 1) {
-                continue;
-            } else {
-                Journal.addEntry(consumer, 1);
-                break;
-            }
-        }
+        return list.add(item);
     }
     
     public boolean deleteItem (Item item, List <Item> list) {
@@ -116,5 +61,33 @@ public class Storage {
         }
         
         return null;
+    }
+    
+    public void addProductToConsumer(Product product, int count, Consumer consumer) {
+        consumer.getProductList().put(product.getID(), count);
+    }
+    
+    public void printProductListToConsumer(Consumer consumer) {
+        Product product;
+        for(Integer key : consumer.getProductList().keySet()) {
+            product = (Product) findItem(key, allProductsList);
+            if( product != null) {
+                System.out.println("ID: " + product.getID() + " Name: " 
+                        + product.getName() + " price: " + product.getPrice() 
+                        + " RUB Amount: " + consumer.getProductList().get(key)
+                        + " OTY \nFinally: " + product.getPrice() 
+                                    * consumer.getProductList().get(key) + "RUB \n");
+            } else continue;
+        }
+        
+        System.out.println("\n\n\n");
+    }
+    
+    public void printProductListAllConsumers() {
+        for(Item consumer : allConsumersList) {
+            System.out.println(consumer.toString());
+            printProductListToConsumer((Consumer)consumer);
+            
+        }
     }
 }

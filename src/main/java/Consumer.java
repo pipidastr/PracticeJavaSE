@@ -11,8 +11,11 @@ public class Consumer extends Item implements Serializable{
     
     private int ID;
     private double totalPrice;
+   
+
     private Map <Integer, Integer> productsList = new HashMap<>();
     
+   
     public Consumer () {
         this.ID = nextID;
         nextID++;
@@ -26,8 +29,16 @@ public class Consumer extends Item implements Serializable{
         return totalPrice;
     }
     
-    public Map <Integer, Integer> getProductsIDList() {
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+    
+    public Map <Integer, Integer> getProductList() {
         return productsList;
+    }
+    
+    public void setProductList(Map<Integer, Integer> productsList) {
+        this.productsList = productsList;
     }
     
     public static int getNextID() {
@@ -53,6 +64,11 @@ public class Consumer extends Item implements Serializable{
     @Override
     public String getClassName() {
         return "Consumer";
+    } 
+    
+    @Override
+    public String toString() {
+        return ID + " Without name" ;
     }
 
     

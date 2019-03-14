@@ -15,9 +15,9 @@ public class FileReadAndWrite {
     final static String providersFilePath = ".\\src\\main\\resources\\Providers.dat";
 
     public static void readDataStorageByFiles(Storage storage) {
-        readDataFromFile(providersFilePath, storage.getAllProvidersList());
-        readDataFromFile(productsFilePath, storage.getAllProductsList());
-        readDataFromFile(consumersFilePath, storage.getAllConsumersList());
+        Provider.setNextID(readDataFromFile(providersFilePath, storage.getAllProvidersList()));
+        Product.setNextID(readDataFromFile(productsFilePath, storage.getAllProductsList()));
+        Consumer.setNextID(readDataFromFile(consumersFilePath, storage.getAllConsumersList()));
     }
     
     public static void writeDataStorageByFiles(Storage storage) {
@@ -26,24 +26,28 @@ public class FileReadAndWrite {
         writeDataFromFile(consumersFilePath, storage.getAllConsumersList());
     }
     
-    public static void readDataFromFile(String filePath, List <Item> list){
+    public static int readDataFromFile(String filePath, List <Item> list){
+        int nextID = 1;
         try(FileInputStream fis = new FileInputStream(filePath);
                 ObjectInputStream ois = new ObjectInputStream(fis)){
             
             boolean hasNext = true;
+           
             
             while(hasNext == true) {
                 Item item = (Item)ois.readObject();
+                
                 if(item != null) {
-                    list.add((Item)ois.readObject());
-                    if(item.getID() == Item.getNextID()) {
-                        Item.setNextID(Item.getNextID() + 1 );
+                    list.add(item);
+                    if(item.getID() >= nextID) {
+                        nextID = item.getID() + 1;
                     }
                 } else {
                     hasNext = false;
                 }
                 
             }
+            
         } catch (EOFException ex) {
             
         } catch (IOException ex) {
@@ -51,6 +55,7 @@ public class FileReadAndWrite {
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
         }
+        return nextID;
     }
     
     public static void writeDataFromFile(String filePath, List <Item> list) {
